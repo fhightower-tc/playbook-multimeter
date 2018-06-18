@@ -1,0 +1,10 @@
+<ul>
+    <li *ngFor="let result of datastore.results">{{ result.name }}: {{ result.message }}</li>
+</ul>
+
+<button class="button" (click)="clearResults()">Clear results</button>
+
+<br><br>
+Refreshing results in {{ seconds }} seconds.
+<br>
+Impatient? <a (click)="seconds = 0; countDown();">Refresh now</a>.
