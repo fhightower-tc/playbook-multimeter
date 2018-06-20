@@ -48,4 +48,35 @@ export class ResultsGathererComponent implements OnInit {
         }
     }
 
+    exportResultsAsCSV() {
+        let data: string = "";
+        for (var i = this.datastore.results.length - 1; i >= 0; i--) {
+            if (i < this.datastore.results.length - 1) {
+                data = data + "\n";
+            }
+            data = data + this.datastore.results[i].name + "," + this.datastore.results[i].message, + "," + this.datastore.results[i].date;
+        }
+        var blob = new Blob([data], { type: 'text/csv' });
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }
+
+    exportResultsAsJSON() {
+        let data: Array<{
+            name: string,
+            message: string,
+            date: string
+        }> = [];
+        for (var i = this.datastore.results.length - 1; i >= 0; i--) {
+            data.push({
+                name: this.datastore.results[i].name,
+                message: this.datastore.results[i].message,
+                date: this.datastore.results[i].date
+            });
+        }
+        var blob = new Blob([JSON.stringify(data, null, 4)], { type: 'text/json' });
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }
+
 }
