@@ -48,12 +48,20 @@ export class DatastoreService {
                             date: string;
                         }
                     ) {
-                        if (a.date === b.date) {
-                            return 0;
-                        } else if (a.date > b.date) {
-                            return 1;
+                        if (a.name === b.name) {
+                            if (a.date === b.date) {
+                                return 0;
+                            } else if (a.date > b.date) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
                         } else {
-                            return -1;
+                            if (a.name > b.name) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
                         }
                     });
                 },
