@@ -4,6 +4,13 @@ Spaces app and playbook component to view data across multiple playbooks.
 
 ## Getting Started
 
+0. Clone the repo
+
+```
+git clone https://gitlab.com/fhightower-tc/playbook-multimeter.git
+cd playbook-multimeter
+```
+
 1. Setup your environment for testing:
 
 ```
