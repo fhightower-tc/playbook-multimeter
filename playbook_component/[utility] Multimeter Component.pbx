@@ -1,0 +1,238 @@
+{
+  "definitionVersion" : "1.0.0",
+  "name" : "[utility] Multimeter Component",
+  "type" : "Pipe",
+  "panX" : 496.0,
+  "panY" : 67.0,
+  "logLevel" : "WARN",
+  "description" : "",
+  "jobList" : [ {
+    "id" : 20018,
+    "appCatalogItem" : {
+      "programName" : "DataStore",
+      "displayName" : "DataStore",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "DataStore 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "tB1XAa8XOGdTiDEh",
+    "publishPassword" : "Trf6i5DE1DqBczcW",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "request_entity"
+      },
+      "value" : "{\n\"date\": \"#Global:0:gbl.timestamp.epoch!String\",\n\"name\": \"#Trigger:1969:name!String\",\n\"message\": \"#App:20388:escapedArray!String\"\n}"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "type_name"
+      },
+      "value" : "#App:20019:datastoreName!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "organization_name"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "path"
+      },
+      "value" : ""
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "db_method"
+      },
+      "value" : "POST"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "domain_type"
+      },
+      "value" : "Organization"
+    } ],
+    "locationLeft" : 390.0,
+    "locationTop" : 290.0,
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 20019,
+    "appCatalogItem" : {
+      "programName" : "TCPB - SetVariable v1.0",
+      "displayName" : "Set Variable",
+      "programVersion" : "1.0.5"
+    },
+    "name" : "Set Variable 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "6iaVwpyoK1idP9zL",
+    "publishPassword" : "MVO1tB7NLYkFNVnI",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "variable_mapping"
+      },
+      "value" : "[{\"key\":\"datastoreName\",\"value\":\"playbookMultimeter\"}]"
+    } ],
+    "locationLeft" : 180.0,
+    "locationTop" : 180.0,
+    "outputVariables" : "[{\"name\":\"datastoreName\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 20388,
+    "appCatalogItem" : {
+      "programName" : "49ce1564bcdf748988c624a5659a0451",
+      "displayName" : "[utility] Escape Quotes for Datastore",
+      "programVersion" : "1.0.0",
+      "pipeRunLevel" : true
+    },
+    "name" : "[utility] Escape Quotes for Datastore 1",
+    "scheduleType" : "Daily",
+    "scheduleLOM" : false,
+    "notifyOnFailure" : true,
+    "notifyOnPartialFailure" : false,
+    "notifyOnComplete" : false,
+    "notifyIncludeLogFiles" : false,
+    "enableNotifications" : false,
+    "publishAuth" : false,
+    "publishUsername" : "fn4qnWnwJdQOOcR5",
+    "publishPassword" : "MeLYpWeehNEdW8EF",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "array"
+      },
+      "value" : "#Trigger:1969:message!String"
+    } ],
+    "locationLeft" : 180.0,
+    "locationTop" : 290.0,
+    "outputVariables" : "[{\"name\":\"escapedArray\",\"type\":\"String\"}]",
+    "playbookRetryEnabled" : false
+  } ],
+  "playbookConnectionList" : [ {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "targetJobId" : 20019,
+    "sourceTriggerId" : 1969
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 20019,
+    "targetJobId" : 20388
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 20388,
+    "targetJobId" : 20018
+  } ],
+  "playbookTriggerList" : [ {
+    "id" : 1969,
+    "name" : "Component Trigger",
+    "type" : "PipeConfig",
+    "eventType" : "External",
+    "locationLeft" : -50.0,
+    "locationTop" : 180.0,
+    "httpBasicAuthEnable" : false,
+    "anyOrg" : true,
+    "orFilters" : false,
+    "fireOnDuplicate" : false,
+    "renderBodyAsTip" : false,
+    "outputVariables" : "[{\"name\":\"message\",\"type\":\"String\"},{\"name\":\"name\",\"type\":\"String\"}]",
+    "pipeInputParams" : "[{\"label\":\"Name\",\"dataType\":\"String\",\"playbookDataType\":\"String\",\"required\":true,\"name\":\"name\",\"encrypted\":false,\"hidden\":false,\"hasDollarVariables\":false,\"playbookVariable\":false,\"validValuesList\":[\"${TEXT}\"]},{\"label\":\"Message\",\"dataType\":\"String\",\"playbookDataType\":\"String\",\"required\":true,\"name\":\"message\",\"encrypted\":false,\"hidden\":false,\"hasDollarVariables\":false,\"playbookVariable\":false,\"validValuesList\":[\"${TEXT}\"]}]",
+    "pipeOutputParams" : "[]"
+  } ],
+  "exportablePipes" : [ {
+    "definitionVersion" : "49ce1564bcdf748988c624a5659a0451",
+    "name" : "[utility] Escape Quotes for Datastore",
+    "type" : "Pipe",
+    "panX" : 20.0,
+    "panY" : 20.0,
+    "logLevel" : "WARN",
+    "description" : "",
+    "jobList" : [ {
+      "id" : 19923,
+      "appCatalogItem" : {
+        "programName" : "Find / Replace",
+        "displayName" : "Find and Replace",
+        "programVersion" : "1.0.0"
+      },
+      "name" : "Find and Replace 1",
+      "scheduleType" : "Daily",
+      "scheduleLOM" : false,
+      "notifyOnFailure" : true,
+      "notifyOnPartialFailure" : false,
+      "notifyOnComplete" : false,
+      "notifyIncludeLogFiles" : false,
+      "enableNotifications" : false,
+      "publishAuth" : false,
+      "publishUsername" : "PYZxuF3bPSN5HUis",
+      "publishPassword" : "M0lSF9bAWXI5JvZJ",
+      "jobParameterList" : [ {
+        "appCatalogItemParameter" : {
+          "paramName" : "input_text"
+        },
+        "value" : "#Trigger:1950:array!String"
+      }, {
+        "appCatalogItemParameter" : {
+          "paramName" : "match_case"
+        },
+        "value" : "false"
+      }, {
+        "appCatalogItemParameter" : {
+          "paramName" : "replace_regex"
+        },
+        "value" : "\\\\\\\\\\\\\""
+      }, {
+        "appCatalogItemParameter" : {
+          "paramName" : "find_regex"
+        },
+        "value" : "\""
+      }, {
+        "appCatalogItemParameter" : {
+          "paramName" : "as_regex"
+        },
+        "value" : "false"
+      } ],
+      "locationLeft" : 440.0,
+      "locationTop" : 280.0,
+      "outputVariables" : "[{\"name\":\"find_replace.output\",\"type\":\"String\"}]",
+      "playbookRetryEnabled" : false
+    } ],
+    "playbookConnectionList" : [ {
+      "type" : "Pass",
+      "isCircularOnTarget" : false,
+      "targetJobId" : 19923,
+      "sourceTriggerId" : 1950
+    }, {
+      "type" : "Pass",
+      "isCircularOnTarget" : true,
+      "sourceJobId" : 19923,
+      "targetTriggerId" : 1950
+    } ],
+    "playbookTriggerList" : [ {
+      "id" : 1950,
+      "name" : "Component Trigger",
+      "type" : "PipeConfig",
+      "eventType" : "External",
+      "locationLeft" : 210.0,
+      "locationTop" : 170.0,
+      "httpBasicAuthEnable" : false,
+      "anyOrg" : true,
+      "orFilters" : false,
+      "fireOnDuplicate" : false,
+      "renderBodyAsTip" : false,
+      "outputVariables" : "[{\"name\":\"array\",\"type\":\"String\"}]",
+      "pipeInputParams" : "[{\"label\":\"Array (as a string)\",\"dataType\":\"String\",\"playbookDataType\":\"String\",\"required\":true,\"name\":\"array\",\"encrypted\":false,\"hidden\":false,\"hasDollarVariables\":false,\"playbookVariable\":false,\"validValuesList\":[\"${TEXT}\"]}]",
+      "pipeOutputParams" : "[{\"key\":\"escapedArray\",\"value\":\"#App:19923:find_replace.output!String \",\"displayValue\":\"#App:19923:find_replace.output!String \"}]"
+    } ],
+    "dateExported" : "6/27/18 5:18 PM"
+  } ],
+  "dateExported" : "6/27/18 5:18 PM"
+}
